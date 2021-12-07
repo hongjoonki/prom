@@ -1,0 +1,107 @@
+type User {
+  id: ID! @id
+  username: String @unique
+  email: String 
+  firstName: String @default(value: "")
+  lastName: String
+  avatar: String
+  posts: [Post!]! @relation(name:"PostsOfUser", onDelete: CASCADE)
+  likes: [Like!]! @relation(name:"LikesOfUser", onDelete: CASCADE)
+  following: [User!] @relation(name: "FollowRelation")
+  followers: [User!] @relation(name: "FollowRelation")
+  bio: String
+  comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
+  rooms: [Room!]!
+  picks : [Pick!] @relation(name: "UsertoPickRelation", onDelete:CASCADE)
+  category : [Category!] @relation(name: "UserToCategory", onDelete: CASCADE)
+  password: String
+  phoneNum: String! @unique
+  notifyToken: String @unique
+  alarm: [Alarm!] @relation(name:"AlarmToUser", onDelete:CASCADE)
+
+}
+
+type Post {
+  id: ID! @id
+  files: [File!]! @relation(name: "PostToFile", onDelete: CASCADE)
+  caption: String
+  storeName: String!
+  storeLat: Float
+  storeLong: Float
+  placeId: String
+  storeLocation: String!
+  likes: [Like!]! @relation(name: "PostToLike", onDelete: CASCADE)
+  user: User @relation(name: "PostsOfUser")
+  comments: [Comment!]! @relation(name:"CommentOfPost", onDelete: CASCADE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  rating: Float!
+  picked: [Pick!] @relation(name: "PosttoPickRelation", onDelete: CASCADE)
+  category: Category! @relation(name: "CategoryInPost")
+  details: [String!] @scalarList(strategy: RELATION)
+  alarm: [Alarm!] @relation(name:"AlarmToPost", onDelete:CASCADE)
+}
+
+type Like {
+  user: User @relation(name:"LikesOfUser")
+  post: Post @relation(name: "PostToLike")
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  comment: Comment @relation(name:"LikesInComment")
+}
+
+type Comment {
+  id: ID! @id
+  text: String!
+  user: User @relation(name: "CommentsOfUser")
+  post: Post @relation(name:"CommentOfPost")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  likes: [Like!]! @relation(name:"LikesInComment", onDelete:CASCADE)
+  headComment: Comment @relation(name: "RelationComment", onDelete:CASCADE)
+  childComment: [Comment!] @relation(name: "RelationComment")
+}
+
+
+
+type File {
+  id: ID! @id
+  url: String
+  post: Post @relation(name: "PostToFile")
+}
+
+
+type Room {
+  id: ID! @id
+  participants: [User!]!
+  messages: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+type Alarm {
+  id: ID! @id
+  from: User @relation(name: "AlarmToUser")
+  to: String!
+  category: String!
+  post: Post @relation(name: "AlarmToPost")
+  check: Boolean!
+  createdAt: DateTime! @createdAt
+
+}
+
+type Category{
+  id: ID! @id
+  user: User! @relation(name: "UserToCategory")
+  categoryName: String!
+  posts: [Post!] @relation(name: "CategoryInPost", onDelete: CASCADE)
+}
+
+type Pick{
+  id: ID! @id
+  user: User! @relation(name: "UsertoPickRelation")
+  post: Post! @relation(name: "PosttoPickRelation")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+

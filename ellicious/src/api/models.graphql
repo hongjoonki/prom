@@ -1,0 +1,133 @@
+type User {
+  id: ID!
+  username: String
+  email: String
+  firstName: String!
+  lastName: String!
+  fullName: String
+  posts: [Post!]!
+  likes: [Like!]!
+  following: [User!]
+  followers: [User!]
+  postsCount: Int!
+  followingCount: Int!
+  feedCount: Int!
+  followersCount: Int!
+  bio: String
+  comments: [Comment!]!
+  rooms: [Room!]!
+  isFollowing: Boolean
+  notifyToken: String
+  isSelf: Boolean!
+  createdAt: String
+  updatedAt: String
+  picks: [Pick!]
+  category: [Category!]
+  categoryCount: Int!
+  avatar: String
+  password: String
+  phoneNum: String!
+  alarm: [Alarm!]
+  
+
+}
+
+type Post {
+  id: ID!
+  files: [File!]
+  caption: String
+  likes: [Like!]!
+  user: User!
+  storeLat: Float
+  storeLong: Float
+  placeId: String
+  comments: [Comment!]!
+  commentCount: Int!
+  pickCount: Int!
+  isLiked: Boolean!
+  likeCount: Int!
+  createdAt: String
+  updatedAt: String
+  rating: Float!
+  storeLocation: String!
+  storeName: String!
+  picked: [Pick!]! 
+  isPicked: Boolean!
+  details: [String!]
+  category: Category!
+  alarm: [Alarm!]
+
+}
+
+type Like {
+  id: ID!
+  user: User
+  post: Post
+  comment: Comment
+  createdAt: String
+  updatedAt: String
+}
+
+type Alarm {
+  id: ID!
+  from: User
+  to: String!
+  category: String!
+  post: Post
+  check: Boolean!
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  user: User!
+  post: Post
+  headComment: Comment
+  createdAt: String
+  updatedAt: String
+  childComment: [Comment!]
+  likes: [Like!]!
+}
+
+type File {
+  id: ID!
+  url: String
+  post: Post!
+  createdAt: String
+  updatedAt: String
+}
+
+type Room {
+  id: ID!
+  participants: [User!]!
+  messages: String!
+  createdAt: String
+  updatedAt: String
+}
+
+
+type UserProfile{
+  user: User!
+  posts: [Post!]
+  categories: [Category!]
+  picks: [Pick!]
+  createdAt: String
+  updatedAt: String
+}
+
+type Category{
+  id: ID! 
+  user: User! 
+  categoryName: String!
+  posts: [Post!] 
+}
+
+
+
+type Pick{
+  id: ID! 
+  user: User! 
+  post: Post! 
+  createdAt: String
+  updatedAt: String 
+}

@@ -1,0 +1,10 @@
+diff a/screens/UserDetail.js b/screens/UserDetail.js	(rejected hunks)
+@@ -35,6 +35,8 @@
+             url
+           }
+           likeCount
++          isLiked
++          isPicked
+           pickCount
+           comments {
+             id

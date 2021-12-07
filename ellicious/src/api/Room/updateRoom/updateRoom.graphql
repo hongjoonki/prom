@@ -1,0 +1,5 @@
+
+type Mutation{
+    updateRoom(messages:String!, toId: String, roomId: String): Room!
+}
+

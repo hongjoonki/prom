@@ -1,0 +1,3 @@
+type Query {
+  recommendUser(pageNumber:Int!, items: Int!): [User!]
+}

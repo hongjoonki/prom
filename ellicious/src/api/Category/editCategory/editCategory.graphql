@@ -1,0 +1,8 @@
+enum ACTIONS{
+    DELETE
+    EDIT
+}
+type Mutation{
+    editCategory(id: String!, categoryName: String action: ACTIONS!):Category!
+}
+

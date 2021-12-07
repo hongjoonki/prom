@@ -1,0 +1,3 @@
+type Mutation{
+    editUser(username:String, firstName: String, lastName: String, bio: String, avatar: String, notifyToken: String):User!
+}

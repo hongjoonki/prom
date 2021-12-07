@@ -1,0 +1,13 @@
+type Mutation{
+    upload(
+        caption: String,
+        storeName: String!,
+        storeLocation: String!, 
+        files: [String!], 
+        rating: Float!,
+        storeLat: Float,
+        storeLong: Float,
+        placeId: String, 
+        category: String!, 
+        details:[String!]) : Post!
+}
